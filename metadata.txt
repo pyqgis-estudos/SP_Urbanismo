@@ -1,0 +1,15 @@
+[general]
+name=SP Urbanismo
+qgisMinimumVersion=2.99
+qgisMaximumVersion=3.99
+description=Conjunto de plugins para as operações da SP Urbanismo
+about=SP Urbanismo é um conjunto de complementos desenhados especialmente para as operações recorrentes dos trabalhos técnicos em SIG. Eles são organizados segundo o tema da operação a ser executado.
+category=Vector, Gerencial
+version=2019.3.1
+author=Marcelo Baliú Fiamenghi
+email=ma.baliu@gmail.com
+homepage=-
+tracker=https://github.com/.../sp_urbanismo/issues
+repository=https://github.com/.../sp_urbanismo
+experimental=True
+deprecated=False
