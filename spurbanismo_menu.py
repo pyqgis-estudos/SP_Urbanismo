@@ -37,15 +37,16 @@ class spurbanismo_menu:
 		self.spurbanismo_menu = QMenu(QCoreApplication.translate("sp_urbanismo", "SP_Urbanismo"))
 		self.iface.mainWindow().menuBar().insertMenu(self.iface.firstRightStandardMenu().menuAction(), self.spurbanismo_menu)
 
-
+		# Organização Submenu
+		self.organizacao_menu = QMenu(QCoreApplication.translate("sp_urbanismo", "&Organização"))
+		self.spurb_add_submenu(self.organizacao_menu)
+		
+		
+		
 		# Cadastro Submenu
 		self.cadastro_menu = QMenu(QCoreApplication.translate("sp_urbanismo", "&Cadastro"))
 		self.spurb_add_submenu(self.cadastro_menu)
 
-
-		# Organização Submenu
-		self.organizacao_menu = QMenu(QCoreApplication.translate("sp_urbanismo", "&Organização"))
-		self.spurb_add_submenu(self.organizacao_menu)
 
 
 		# IPTU Submenu
