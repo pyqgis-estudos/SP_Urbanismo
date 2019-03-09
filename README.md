@@ -8,4 +8,4 @@
 ENTRADA: Caminho de pasta
 
 ## Editor de Layouts (layoutManagerEditer)
-Permite que sejam atualizados as extensões de diversos layouts de uma única vez.
+[EM ELABORAÇÃO] Permite que sejam atualizados as extensões de diversos layouts de uma única vez.
