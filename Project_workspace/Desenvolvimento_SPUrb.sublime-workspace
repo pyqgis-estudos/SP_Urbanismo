@@ -100,6 +100,22 @@
 	"buffers":
 	[
 		{
+			"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_dialogs.py",
+			"settings":
+			{
+				"buffer_size": 94964,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_library.py",
+			"settings":
+			{
+				"buffer_size": 172790,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"contents": "# --------------------------------------------------------\n#    mmqgis_menu - QGIS plugins menu class\n#\n#    begin                : August 5, 2009\n#    copyright            : (c) 2009 - 2012 by Michael Minn\n#    email                : See michaelminn.com\n#\n#   MMQGIS is free software and is offered without guarantee\n#   or warranty. You can redistribute it and/or modify it \n#   under the terms of version 2 of the GNU General Public \n#   License (GPL v2) as published by the Free Software \n#   Foundation (www.gnu.org).\n# --------------------------------------------------------\n\nfrom PyQt5.QtCore import *\nfrom PyQt5.QtGui import *\nfrom qgis.core import *\n\nfrom .mmqgis_dialogs import *\n\n# ---------------------------------------------\n\nclass mmqgis_menu:\n\tdef __init__(self, iface):\n\t\tself.iface = iface\n\t\tself.mmqgis_menu = None\n\n\tdef mmqgis_add_submenu(self, submenu):\n\t\tif self.mmqgis_menu != None:\n\t\t\tself.mmqgis_menu.addMenu(submenu)\n\t\telse:\n\t\t\tself.iface.addPluginToMenu(\"&mmqgis\", submenu.menuAction())\n\n\tdef initGui(self):\n\t\t# Uncomment the following two lines to have MMQGIS accessible from a top-level menu\n\t\tself.mmqgis_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"MMQGIS_temp\"))\n\t\tself.iface.mainWindow().menuBar().insertMenu(self.iface.firstRightStandardMenu().menuAction(), self.mmqgis_menu)\n\n\t\t# Animate Submenu\n\t\tself.animate_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Animate\"))\n\t\tself.mmqgis_add_submenu(self.animate_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_animate_columns.png\")\n\t\tself.animate_columns_action = QtWidgets.QAction(icon, \"Animate Columns\", self.iface.mainWindow())\n\t\tself.animate_columns_action.triggered.connect(self.animate_columns)\n\t\tself.animate_menu.addAction(self.animate_columns_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_animate_lines.png\")\n\t\tself.animate_lines_action = QtWidgets.QAction(icon, \"Animate Lines\", self.iface.mainWindow())\n\t\tself.animate_lines_action.triggered.connect(self.animate_lines)\n\t\tself.animate_menu.addAction(self.animate_lines_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_animate_rows.png\")\n\t\tself.animate_rows_action = QtWidgets.QAction(icon, \"Animate Rows\", self.iface.mainWindow())\n\t\tself.animate_rows_action.triggered.connect(self.animate_rows)\n\t\tself.animate_menu.addAction(self.animate_rows_action)\n\n\n\t\t# Combine Submenu\n\t\tself.combine_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Combine\"))\n\t\tself.mmqgis_add_submenu(self.combine_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_join.png\")\n\t\tself.attribute_join_action = QtWidgets.QAction(icon, \"Attributes Join from CSV File\", self.iface.mainWindow())\n\t\tself.attribute_join_action.triggered.connect(self.attribute_join)\n\t\tself.combine_menu.addAction(self.attribute_join_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_merge.png\")\n\t\tself.merge_action = QtWidgets.QAction(icon, \"Merge Layers\", self.iface.mainWindow())\n\t\tself.merge_action.triggered.connect(self.merge)\n\t\tself.combine_menu.addAction(self.merge_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_spatial_join.png\")\n\t\tself.spatial_join_action = QtWidgets.QAction(icon, \"Spatial Join\", self.iface.mainWindow())\n\t\tself.spatial_join_action.triggered.connect(self.spatial_join)\n\t\tself.combine_menu.addAction(self.spatial_join_action)\n\n\n\t\t# Create Submenu\n\t\tself.create_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Create\"))\n\t\tself.mmqgis_add_submenu(self.create_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_buffers.png\")\n\t\tself.buffers_action = QtWidgets.QAction(icon, \"Create Buffers\", self.iface.mainWindow())\n\t\tself.buffers_action.triggered.connect(self.buffers)\n\t\tself.create_menu.addAction(self.buffers_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_grid.png\")\n\t\tself.grid_action = QtWidgets.QAction(icon, \"Create Grid Layer\", self.iface.mainWindow())\n\t\tself.grid_action.triggered.connect(self.grid)\n\t\tself.create_menu.addAction(self.grid_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_hub_distance.png\")\n\t\tself.hub_distance_action = QtWidgets.QAction(icon, \"Hub Distance\", self.iface.mainWindow())\n\t\tself.hub_distance_action.triggered.connect(self.hub_distance)\n\t\tself.create_menu.addAction(self.hub_distance_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_hub_distance.png\")\n\t\tself.hub_lines_action = QtWidgets.QAction(icon, \"Hub Lines\", self.iface.mainWindow())\n\t\tself.hub_lines_action.triggered.connect(self.hub_lines)\n\t\tself.create_menu.addAction(self.hub_lines_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_voronoi.png\")\n\t\tself.voronoi_action = QtWidgets.QAction(icon, \"Voronoi Diagram\", self.iface.mainWindow())\n\t\tself.voronoi_action.triggered.connect(self.voronoi)\n\t\tself.create_menu.addAction(self.voronoi_action)\n\n\n\t\t# Geocode submenu\n\t\tself.geocode_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Geocode\"))\n\t\tself.mmqgis_add_submenu(self.geocode_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_geocode_web_service.png\")\n\t\tself.geocode_web_service_action = QtWidgets.QAction(icon, \"Geocode CSV with Google / OpenStreetMap\", \n\t\t\tself.iface.mainWindow())\n\t\tself.geocode_web_service_action.triggered.connect(self.geocode_web_service)\n\t\tself.geocode_menu.addAction(self.geocode_web_service_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_geocode_street_layer.png\")\n\t\tself.geocode_street_layer_action = QtWidgets.QAction(icon, \"Geocode from Street Layer\", self.iface.mainWindow())\n\t\tself.geocode_street_layer_action.triggered.connect(self.geocode_street_layer)\n\t\tself.geocode_menu.addAction(self.geocode_street_layer_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_geocode_street_layer.png\")\n\t\tself.street_address_join_action = QtWidgets.QAction(icon, \"Street Address Join\", self.iface.mainWindow())\n\t\tself.street_address_join_action.triggered.connect(self.street_address_join)\n\t\tself.geocode_menu.addAction(self.street_address_join_action)\n\n\n\t\t# Search / Select Submenu\n\t\tself.search_select_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Search / Select\"))\n\t\tself.mmqgis_add_submenu(self.search_select_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_search.png\")\n\t\tself.search_action = QtWidgets.QAction(icon, \"Search\", self.iface.mainWindow())\n\t\tself.search_action.triggered.connect(self.search)\n\t\tself.search_select_menu.addAction(self.search_action)\n\n\t\t# This one button in the plugins toolbar is for the South Derbyshire District Council (7/14/2013)\n\t\t# self.iface.addToolBarIcon(self.search_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_select.png\")\n\t\tself.select_action = QtWidgets.QAction(icon, \"Select\", self.iface.mainWindow())\n\t\tself.select_action.triggered.connect(self.select)\n\t\tself.search_select_menu.addAction(self.select_action)\n\n\n\t\t# Import / Export Submenu\n\t\tself.import_export_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Import / Export\"))\n\t\tself.mmqgis_add_submenu(self.import_export_menu)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_export.png\")\n\t\tself.attribute_export_action = QtWidgets.QAction(icon, \"Attributes Export to CSV File\", self.iface.mainWindow())\n\t\tself.attribute_export_action.triggered.connect(self.attribute_export)\n\t\tself.import_export_menu.addAction(self.attribute_export_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_export.png\")\n\t\tself.geometry_export_action = QtWidgets.QAction(icon, \"Geometry Export to CSV File\", self.iface.mainWindow())\n\t\tself.geometry_export_action.triggered.connect(self.geometry_export)\n\t\tself.import_export_menu.addAction(self.geometry_export_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_join.png\")\n\t\tself.geometry_import_action = QtWidgets.QAction(icon, \"Geometry Import from CSV File\", self.iface.mainWindow())\n\t\tself.geometry_import_action.triggered.connect(self.geometry_import)\n\t\tself.import_export_menu.addAction(self.geometry_import_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_geocode_web_service.png\")\n\t\tself.kml_export_action = QtWidgets.QAction(icon, \"Google Maps KML Export\", self.iface.mainWindow())\n\t\tself.kml_export_action.triggered.connect(self.kml_export)\n\t\tself.import_export_menu.addAction(self.kml_export_action)\n\n\t\t# Modify Submenu\n\t\tself.modify_menu = QtWidgets.QMenu(QCoreApplication.translate(\"mmqgis\", \"&Modify\"))\n\t\tself.mmqgis_add_submenu(self.modify_menu)\n\n\t\t# icon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_color_ramp.png\")\n\t\t# self.color_ramp_action = QtWidgets.QAction(icon, \"Color Ramp\", self.iface.mainWindow())\n\t\t# self.color_ramp_action.triggered.connect(self.color_ramp)\n\t\t# self.modify_menu.addAction(self.color_ramp_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_export.png\")\n\t\tself.geometry_convert_action = QtWidgets.QAction(icon, \"Convert Geometry Type\", self.iface.mainWindow())\n\t\tself.geometry_convert_action.triggered.connect(self.geometry_convert)\n\t\tself.modify_menu.addAction(self.geometry_convert_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_attribute_join.png\")\n\t\tself.delete_duplicate_action = QtWidgets.QAction(icon, \"Delete Duplicate Geometries\", self.iface.mainWindow())\n\t\tself.delete_duplicate_action.triggered.connect(self.delete_duplicate_geometries)\n\t\tself.modify_menu.addAction(self.delete_duplicate_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_float_to_text.png\")\n\t\tself.float_to_text_action = QtWidgets.QAction(icon, \"Float to Text\", self.iface.mainWindow())\n\t\tself.float_to_text_action.triggered.connect(self.float_to_text)\n\t\tself.modify_menu.addAction(self.float_to_text_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_gridify.png\")\n\t\tself.gridify_action = QtWidgets.QAction(icon, \"Gridify\", self.iface.mainWindow())\n\t\tself.gridify_action.triggered.connect(self.gridify)\n\t\tself.modify_menu.addAction(self.gridify_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_sort.png\")\n\t\tself.sort_action = QtWidgets.QAction(icon, \"Sort\", self.iface.mainWindow())\n\t\tself.sort_action.triggered.connect(self.sort)\n\t\tself.modify_menu.addAction(self.sort_action)\n\n\t\ticon = QIcon(os.path.dirname(__file__) + \"/icons/mmqgis_text_to_float.png\")\n\t\tself.text_to_float_action = QtWidgets.QAction(icon, \"Text to Float\", self.iface.mainWindow())\n\t\tself.text_to_float_action.triggered.connect(self.text_to_float)\n\t\tself.modify_menu.addAction(self.text_to_float_action)\n\n\n\n\n\n\tdef unload(self):\n\t\tif self.mmqgis_menu != None:\n\t\t\tself.iface.mainWindow().menuBar().removeAction(self.mmqgis_menu.menuAction())\n\t\telse:\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.animate_menu.menuAction())\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.combine_menu.menuAction())\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.create_menu.menuAction())\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.geocode_menu.menuAction())\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.import_export_menu.menuAction())\n\t\t\tself.iface.removePluginMenu(\"&mmqgis\", self.modify_menu.menuAction())\n\n\t\t# This one button in the plugins toolbar is for the South Derbyshire District Council (7/14/2013)\n\t\t# self.iface.removeToolBarIcon(self.search_action)\n\n\tdef street_address_join(self):\n\t\tdialog = mmqgis_street_address_join_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef animate_columns(self):\n\t\tdialog = mmqgis_animate_columns_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef animate_lines(self):\n\t\tdialog = mmqgis_animate_lines_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef animate_rows(self):\n\t\tdialog = mmqgis_animate_rows_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef attribute_export(self):\n\t\tdialog = mmqgis_attribute_export_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef attribute_join(self):\n\t\tdialog = mmqgis_attribute_join_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef buffers(self):\n\t\t#try:\n\t\t#\tself.buffers_dialog\n\t\t#except:\n\t\t#\tself.buffers_dialog = mmqgis_buffers_dialog(self.iface)\n\t\t#self.buffers_dialog.exec_()\n\n\t\tdialog = mmqgis_buffers_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef color_ramp(self):\n\t\tdialog = mmqgis_color_ramp_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef delete_duplicate_geometries(self):\n\t\tdialog = mmqgis_delete_duplicate_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef float_to_text(self):\n\t\tdialog = mmqgis_float_to_text_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef geocode_web_service(self):\n\t\tdialog = mmqgis_geocode_web_service_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef geocode_street_layer(self):\n\t\tdialog = mmqgis_geocode_street_layer_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef geometry_convert(self):\n\t\tdialog = mmqgis_geometry_convert_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef geometry_export(self):\n\t\tdialog = mmqgis_geometry_export_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef geometry_import(self):\n\t\tdialog = mmqgis_geometry_import_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef grid(self):\n\t\tdialog = mmqgis_grid_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef gridify(self):\n\t\tdialog = mmqgis_gridify_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef hub_distance(self):\n\t\tdialog = mmqgis_hub_distance_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef hub_lines(self):\n\t\tdialog = mmqgis_hub_lines_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef kml_export(self):\n\t\tdialog = mmqgis_kml_export_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef merge(self):\n\t\tdialog = mmqgis_merge_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef search(self):\n\t\t# Modeless interactive dialog\n\t\t# Must be saved in self, otherwise garbage collector destroys dialog\n\t\tself.search_dialog = mmqgis_search_dialog(self.iface)\n\t\tself.search_dialog.setWindowModality(QtCore.Qt.NonModal) \n\t\tself.search_dialog.show()\n\t\t# self.search_dialog.activateWindow()\n\n\tdef select(self):\n\t\tdialog = mmqgis_select_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef sort(self):\n\t\tdialog = mmqgis_sort_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef spatial_join(self):\n\t\tdialog = mmqgis_spatial_join_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef text_to_float(self):\n\t\tdialog = mmqgis_text_to_float_dialog(self.iface)\n\t\tdialog.exec_()\n\n\tdef voronoi(self):\n\t\tdialog = mmqgis_voronoi_dialog(self.iface)\n\t\tdialog.exec_()\n\n",
 			"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_menu.py",
 			"file_size": 14251,
@@ -107,24 +123,23 @@
 			"settings":
 			{
 				"buffer_size": 14251,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/processing/scripts/dissolve_with_sum.py",
+			"settings":
+			{
+				"buffer_size": 8341,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "spurbanismo_menu.py",
+			"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/bf_sig/__init__.py",
 			"settings":
 			{
-				"buffer_size": 1675,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "metadata.txt",
-			"settings":
-			{
-				"buffer_size": 575,
+				"buffer_size": 1883,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -134,15 +149,6 @@
 			"settings":
 			{
 				"buffer_size": 689,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "__init__.py",
-			"settings":
-			{
-				"buffer_size": 716,
-				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -179,6 +185,12 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/sp_urbanismo/Project_workspace/__init__.py",
+		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/sp_urbanismo/Project_workspace/metadata.txt",
+		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/sp_urbanismo/Project_workspace/spurbanismo_menu.py",
+		"/C/_RAW/PROJETOS/201903_Loterica/analiseLoteria.py",
+		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/delete_feature/delete_feature.py",
+		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/multi_buffer_module/multi_buffer_module.py",
 		"/C/Users/Baliu-Fiamenghi/Desktop/FAU/Estagio/SpUrbe/WebScra/ZAP_AB/ZAB_OFERTAs_parser.py",
 		"/C/_RAW/PROJETOS/201811_DOCs_PMSP/PY/ambiente_sensivel.py",
 		"/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/GeoCoding/GeoCoding.py",
@@ -276,6 +288,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"addParameter",
+			"organizacao_menu",
+			"cadastro_menu",
+			"QtWidgets",
 			"mmqgis_menu",
 			"iptu_teste",
 			"proc_ind",
@@ -389,11 +405,69 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_dialogs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 94964,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8926,
+								8935
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 402.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_library.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 172790,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 9589.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/mmqgis_menu.py",
 					"semi_transient": false,
 					"settings":
@@ -414,71 +488,72 @@
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 455.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "spurbanismo_menu.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1675,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1300,
-								1300
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 306.0,
+						"translation.y": 169.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "metadata.txt",
+					"buffer": 3,
+					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/processing/scripts/dissolve_with_sum.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 575,
+						"buffer_size": 8341,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								4272,
+								4272
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1724.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/bf_sig/__init__.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1883,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1551,
+								1518
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 236.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 5,
 					"file": "/C/Users/Baliu-Fiamenghi/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/__init__.py",
 					"semi_transient": false,
 					"settings":
@@ -502,35 +577,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "__init__.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 716,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								295,
-								295
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
